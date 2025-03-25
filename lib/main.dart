@@ -35,3 +35,92 @@ class _SignupPageState extends State<SignupPage> {
       );
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Signup Page')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FormBuilder(
+          key: _formKey,
+          child: Column(
+            children: [
+              FormBuilderTextField(
+                name: 'name',
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                  ),
+                ),
+                validator: (value) => value == null || value.isEmpty ? 'Enter your name' : null,
+              ),
+              const SizedBox(height: 10),
+              FormBuilderTextField(
+                name: 'email',
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                  ),
+                ),
+                validator: (value) =>
+                value != null && !RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)
+                    ? 'Enter a valid email'
+                    : null,
+              ),
+              const SizedBox(height: 10),
+              FormBuilderDateTimePicker(
+                name: 'dob',
+                inputType: InputType.date,
+                format: DateFormat('yyyy-MM-dd'),
+                decoration: InputDecoration(
+                  labelText: 'Date of Birth',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              FormBuilderTextField(
+                name: 'password',
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                  ),
+                ),
+                obscureText: true,
+                validator: (value) => value != null && value.length < 6
+                    ? 'Password must be at least 6 characters'
+                    : null,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _submitForm,
+                child: const Text('Submit'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ConfirmationPage extends StatelessWidget {
+  const ConfirmationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Confirmation')),
+      body: Center(child: const Text('Sign-up Successful!', style: TextStyle(fontSize: 20))),
+    );
+  }
+}
