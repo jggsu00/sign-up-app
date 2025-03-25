@@ -17,3 +17,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final _formKey = GlobalKey<FormBuilderState>();
+
+  void _submitForm() {
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ConfirmationPage()),
+      );
+    }
+  }
